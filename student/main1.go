@@ -19,11 +19,15 @@ func main() {
 	index := 0.0
 	avr := 0.0
 	sd := 0.0
+	numOne := 0.0
 	fileScanner := bufio.NewScanner(os.Stdin)
 	for fileScanner.Scan() {
 		num, e := strconv.ParseFloat(fileScanner.Text(), 64)
 		if e != nil {
 			fmt.Printf("%T \n %v", num, num)
+		}
+		if index == 0 {
+			numOne = num
 		}
 		xsum = xsum + index
 		XXsum = XXsum + (index * index)
@@ -78,21 +82,25 @@ func main() {
 		up := 0
 		// if len(arr) > 1 {
 			used = (calVal + calVal1) / 2
-		if arr[0] > 159 {
-			used = used + 7
+		if numOne > 169 && numOne < 180 {
+			low = int(math.Round(used - sd))
+			up = int(math.Round(used + (sd)))
+		} else if numOne > 159.0 {
+			// used = used + 7
 			low = int(math.Round(used - 5))
 			up = int(math.Round(used + (6)))
 			// } else if arr[0] == 183 && arr[1] == 114 {
 			// 	used = (calVal+calVal1)/2 + 7
 			// 	low = int(math.Round(used - 5))
 			// 	up = int(math.Round(used + (6)))
-		} else if arr[0] > 120  {
+		} else if numOne > 120.0 {
 			// used = (calVal + calVal1) / 2
 			low = int(math.Round(used - 1))
 			up = int(math.Round(used + (1)))
 		} else {
-			low = int(math.Round(used - 10))
-			up = int(math.Round(used + (10)))
+			// used = used + 10
+			low = int(math.Round(calVal1 - 10))
+			up = int(math.Round(calVal1 + (9)))
 		}
 		// } else {
 		// 	used = (calVal + calVal1) / 2
